@@ -1,0 +1,116 @@
+1 - Comando para verificar se o docker está funcionando corretamente
+docker container run hello-world
+
+2 - Comando para listar os containers que estão em execução na sua máquina
+docker container ls
+
+3 - Comando para listar todos os containers na sua máquina
+docker container ls -a
+
+4 - Comando para criar um novo container e especificar um nome para o container
+docker container run --name meucontainer hello-world
+
+5 - Comando para excluir um container
+docker container rm nome_do_container_ou_container_id
+
+6 - Comando para criar um novo container, executar ele e depois excluir
+docker container run --rm hello-world 
+
+7 - Comando para executar um container do ubuntu no modo iterativo
+docker container run -it ubuntu /bin/bash
+
+8 - Comando para executar um container com o nginx
+docker container run nginx
+
+9 - Comando para executar um container com o nginx sem travar o terminal
+docker container run -d nginx
+
+10 - Comando para entrar dentro de um container
+docker exec -it container_id /bin/bash
+
+11 - Comando para fazer um PORT BIND no container
+docker container run -d -p 8080:80 nginx
+
+12 - Comando para parar a execução de um container
+docker container stop container_id
+
+13 - Comando para excluir um container de forma forçada
+docker container rm -f container_id
+
+14 - Comando para retornar somente o id de todos os containers
+docker container ls -a -q
+
+15 - Comando para excluir todos os containers 
+docker container rm -f $(docker container ls -aq)
+
+16 - Comando para configurar um banco de dados (postgres no caso)
+docker container run -d -p 5432:5432 -e POSTGRES_DB=aula -e POSTGRES_USER=iniciativadevops -e POSTGRES_PASSWORD=Iniciativa1234 postgres
+
+17 - Comando para criar uma imagem a partir de um docker file
+docker build -t nome_da_imagem .
+ou docker build -t nome_da_imagem -f Dockerfile
+Considerações:
+    - Precisa estar na pasta onde se encontra o Dockerfile para executar
+    - O nome do arquivo deve ser Dockerfile com "f" minusculo
+
+18 - Comando para listar as imagens que estão na sua máquina
+docker image ls
+
+19 - Comandos que podem ser utilizados no Dockerfile
+    - FROM -> Inicializa o build de uma imagem a partir de uma imagem base
+    - RUN -> Executa um Comando
+    - LABEL -> Adiciona metadados a imagem
+    - CMD -> Define o comando e/ou os parâmetros padrão
+    - EXPOSE -> Define que o container precisa expor a porta em questão
+    - ARG -> Define um argumento para ser usado no processo de construção
+    - ENV -> Define variáveis de ambiente
+    - ADD -> Copia arquivos ou diretórios ou arquivos remotos e adiciona ao sistema de arquivos da imagem
+    - COPY -> Copia arquivos ou diretórios e adiciona ao sistema de arquivos da imagem
+    - ENTRYPOINT -> Ajuda você a configurar um container que pode ser executado como um executável
+    - VOLUME -> Define volumes que devem ser definidos
+    - WORKDIR -> Define o seu diretório corretamente
+
+20 - Comando para criar uma imagem a partir do docker file sem cache
+docker build -t nome_da_imagem . --no-cache
+ou docker build -t nome_da_imagem -f Dockerfile --no-cache
+
+21 - A ordem das instruções vai ser executada com cache somente até onde não foi alterada
+   - Dessa forma é recomendado colocar instruções novas na última linha
+
+22 - Para inserir comentários em um Dockerfile basta adicionar # no começo da linha
+
+23 - Comando que dependem de outros comandos devem ser colocados intercalados
+   - Por exemplo de um pacote foi adicionado recentemente ele tem que ser executado
+   - depois do apt update para que ele seja encontrado utilizando o "&&"
+   - apt update && apt install vim --yes
+
+24 - Para fazer uma quebra de linha você pode colocar um "\" no final da linha
+
+25 - Comando para deletar imagens
+docker image rm id_da_imagem
+
+26 - Comando para deletar as imagens que não estão mais sendo utilizadas
+docker image prune
+
+27 - Comando para deletar todas as imagens (Verifique se existe algum container rodando em caso de erro)
+docker image rm $(docker image ls -q)
+
+28 - O Docker tem um padrão de nomenclatura para subir imagens para o dockerhub
+    - fedispato/ubuntu-curl:v1
+    - Sendo eles -> nome_do_dono/nome_do_repositorio:versao
+
+29 - Comando para mudar o nome de uma imagem
+docker tag nome_da_imagem 
+
+30 - Comando para realizar login no docker (necessário usuário e senha)
+docker login
+
+31 - Comando para subir uma imagem docker 
+docker push nome_da_imagem
+
+32 - Uma boa prática é definir a versão que está sendo utilizada da imagem raiz
+    - Exemplo node:v16
+
+33 - Você pode criar um arquivo .dockerignore para ignorar as pastas que você não quer
+   - que sejam copiadas em um processo do Dockerfile
+
